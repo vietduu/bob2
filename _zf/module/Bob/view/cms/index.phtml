@@ -1,0 +1,53 @@
+<h1 id="title">Administration CMS</h1>
+
+<div id="dashboard">
+    
+
+    <div class="add-btn">
+        <a href="<?php echo $this->url('cms/add', array(
+                            'controller' => 'cms',
+                            'action' => 'add'
+                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974708_add.png'); ?>" alt="add" /></a>
+        <a href="<?php echo $this->url('cms', array(
+                            'controller' => 'cms',
+                            'action' => 'index'
+                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974674_reload.png'); ?>" alt="reload" /></a>
+    </div>
+    <table>
+        <tr>
+        	<th>ID</th>
+        	<th>Type</th>
+        	<th>Key</th>
+        	<th>Description</th>
+        	<th>Created at</th>
+        	<th>Revision</th>
+        	<th>Is active</th>
+        	<th>Is published</th>
+        	<th>Action</th>
+        </tr>
+    <?php foreach ($this->folders as $folder): ?>
+        <tr>
+	        <td><?php echo $folder['id_cms_folder']; ?></td>
+	        <td><?php echo $folder['label']; ?></td>
+	        <td><?php echo $folder['key']; ?></td>
+	        <td><?php echo $folder['description']; ?></td>
+	        <td><?php echo $folder['created_at']; ?></td>
+	        <td><?php echo $folder['revision']; ?></td>
+	        <td><?php echo $folder['is_active']; ?></td>
+	        <td><?php echo $folder['is_published']; ?></td>
+	        <td>
+	        	<a href="<?php echo $this->url('cms/edit', array(
+                            'controller' => 'cms',
+                            'action' => 'edit',
+                            'id' => $folder['id_cms_folder'],
+                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974233_Settings.png'); ?>" alt="edit" /></a>
+        		<a href="<?php echo $this->url('cms/delete', array(
+                            'controller' => 'cms',
+                            'action' => 'delete',
+                            'id' => $folder['id_cms_folder'],
+                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455973512_Delete.png'); ?>" alt="delete" /></a>
+	        </td>
+        </tr>
+    <?php endforeach; ?>
+	</table>
+</div>

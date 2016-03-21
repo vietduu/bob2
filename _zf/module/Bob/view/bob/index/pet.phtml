@@ -1,0 +1,47 @@
+<h1 id="title">Administration PET</h1>
+
+<div id="dashboard">
+    <div class="add-btn">
+        <a href="<?php echo $this->url('cms/add', array(
+                            'controller' => 'cms',
+                            'action' => 'add'
+                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974708_add.png'); ?>" alt="add" /></a>
+        <a href="<?php echo $this->url('pet', array(
+                            'controller' => 'index',
+                            'action' => 'pet'
+                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974674_reload.png'); ?>" alt="reload" /></a>
+    </div>
+    <table>
+        <tr>
+        	<th>Category</th>
+        	<th>SKU</th>
+        	<th>Name</th>
+        	<th>Image</th>
+            <th>Action</th>
+        </tr>
+    <?php foreach ($this->all_invoice_types as $invoice_type_entity): ?>
+            <?php foreach ($this->products_by_invoice_type as $pite): ?>
+                <?php if ($invoice_type_entity->invoice_type_id == $pite['invoice_type_fk']): ?>
+                    <tr>
+                    <td><?php echo $pite['invoice_type_name']; ?></td>
+                    <td><?php echo $pite['sku']; ?></td>
+                    <td><?php echo $pite['general_name']; ?></td>
+                    <td><?php echo (strlen($pite['source']) > 0) ? $pite['source'] : ''; ?></td>
+                    <td>
+                        <a href="<?php echo $this->url('pet/product', array(
+                                'controller' => 'index',
+                                'action' => 'product',
+                                'id' => $pite['general_id']
+                                )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974233_Settings.png'); ?>" alt="edit" /></a>
+                        <a href="<?php echo $this->url('cms/delete', array(
+                                    'controller' => 'cms',
+                                    'action' => 'delete',
+                                    'id' => $pite['general_id'],
+                                )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455973512_Delete.png'); ?>" alt="delete" /></a>
+                    </td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+    <?php endforeach; ?>
+	</table>
+</div>

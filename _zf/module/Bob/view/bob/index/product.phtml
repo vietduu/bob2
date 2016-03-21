@@ -1,0 +1,81 @@
+<?php
+	$product = $this->currentProduct[0];
+    $this->title = $product['general_name'];
+    $this->headTitle($this->title);
+    $images = $this->images;
+?>
+
+<h1 id="title">Administration PET</h1>
+
+<div id="dashboard">
+	<div id="pet-title">
+		<span id="sku"> SKU: <?php echo $product['sku'] ?></span><br/>
+		<span><?php echo $product['general_name'] ?></span>
+	</div>
+
+	<div class="product-imagebox-layout" id="imagebox">
+		<div id="product-gallery">
+		<?php foreach ($images as $image): ?>
+			<span class="gallery-image">
+			<img src="<?php echo $this->basePath($image['source']); ?>" title="<?php echo $image['title']; ?>" alt="<?php echo $image['alt_tag']; ?>" width="44px" />
+			</span>
+		<?php endforeach; ?>
+		</div>
+		<span id="product-thumbnail" style="display:none">
+			<img src="<?php echo $this->basePath($product['source']); ?>" title="<?php echo $product['title']; ?>" alt="<?php echo $product['alt_tag']; ?>"/>
+		</span>
+		<span id="product-image">
+			<img src="<?php echo $this->basePath($product['source']); ?>" title="<?php echo $product['title']; ?>" alt="<?php echo $product['alt_tag']; ?>" width="350px" />
+		</span>
+	</div>
+
+	<div id="detail-info">
+		<div id="general-name">
+			<label>Tên sản phẩm:</label>
+			<input class="textbox" type="text" value="<?php echo $product['general_name'] ?>" />
+		</div>
+		<div id="invoice-flag">
+			<?php if ($product['invoice_flag']): ?>
+				<input type="checkbox" name="invoice-flag" value="Is invoice" checked > Is invoice
+			<?php else: ?>
+				<input type="checkbox" name="invoice-flag" value="Is invoice" > Is invoice
+			<?php endif; ?>
+		</div>
+		<div id="product-type">
+			<label>Loại sản phẩm:</label>
+			<select class="textbox">
+				<?php foreach($this->all_product_types as $productTypeEntity):
+					if ($productTypeEntity->name == $product['name']): ?>
+						<option value="<?php echo $productTypeEntity->name; ?>" selected><?php echo $productTypeEntity->name; ?></option>
+					<?php else: ?>
+                		<option value="<?php echo $productTypeEntity->name; ?>"><?php echo $productTypeEntity->name; ?></option>
+                	<?php endif; ?>
+                <?php endforeach; ?>
+            </select>
+
+		</div>
+		<div id="invoice-type">
+			<?php if ($product['invoice_flag']): ?>
+				<label>Loại hóa đơn:</label>
+				<select class="textbox">
+				<?php foreach($this->invoiceType as $invoiceTypeEntity):
+					if ($invoiceTypeEntity->invoice_type_name == $product['invoice_type_name']): ?>
+						<option value="<?php echo $invoiceTypeEntity->invoice_type_name; ?>" selected><?php echo $invoiceTypeEntity->invoice_type_name; ?></option>
+					<?php else: ?>
+                		<option value="<?php echo $invoiceTypeEntity->invoice_type_name; ?>"><?php echo $invoiceTypeEntity->invoice_type_name; ?></option>
+                	<?php endif; ?>
+                <?php endforeach; ?>
+            	</select>
+
+			<?php endif; ?>
+		</div>
+		<div id="description">
+			<label>Thông tin sản phẩm: </label>
+			<textarea><?php echo $product['description_content'] ?></textarea>
+		</div>
+		<div id="submission">
+			<button type="submit" value="submit">SAVE</button>
+			<button type="cancel" value="cancel">CANCEL</button>
+		</div>
+	</div>
+</div>

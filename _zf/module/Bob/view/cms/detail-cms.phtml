@@ -1,0 +1,65 @@
+<?php
+$form = $this->form;
+
+echo $this->form()->openTag($form); ?>
+
+<div class="ui-fieldset">
+	<div class="ui-formRow ui-summary">
+		<?php $fk_cms_item_type = $form->get('fk_cms_item_type'); ?>
+		<div class="ui-formCol1"><?php echo $this->formLabel($fk_cms_item_type); ?></div>
+		<div class="ui-formCol2"><?php echo $this->formSelect($fk_cms_item_type); ?></div>
+	</div>
+
+	<?php if (0 < $this->count):
+			$items = $this->items;
+			foreach ($items as $item): ?>
+				<div class="ui-formRow" data-id="<?php echo intval($item['fk_cms_item_type'])-1; ?>">
+					<?php $script = 
+					"$('#cms-detail-page .ui-formRow:not(.ui-summary,.ui-submit-field)').each(function(i,e){
+						$('select[name=\'fk_cms_item_type\']').children().each(function(){
+							if ($(e).attr('data-id') == $(this).attr('value')){
+								$(this).addClass('off');
+							}
+						});
+					});";
+
+					echo "<script type='text/javascript'>" . $script . "</script>"; ?>
+
+					<input type="hidden" value="<?php echo $item['id_cms_item']; ?>">
+					<div class="ui-formCol1"><label><?php echo $item['label']; ?></label></div>
+					<div class="ui-formCol2">
+						<?php if ("text" == $item['xtype']): ?>
+							<input type="text" name="<?php echo $item['label']; ?>" value="<?php echo $item['content']; ?>">
+						<?php elseif ("checkbox" == $item['xtype']): ?>
+							<input type="checkbox" name="<?php echo $item['label']; ?>" <?php echo $item['content']; ?>>
+						<?php elseif ("textarea" == $item['xtype']
+										&& (intval($item['fk_cms_item_type']) == 2 ||
+											intval($item['fk_cms_item_type']) == 23 || 
+											intval($item['fk_cms_item_type']) == 24 ||
+											intval($item['fk_cms_item_type']) == 27 ||
+											intval($item['fk_cms_item_type']) == 29 ||
+											intval($item['fk_cms_item_type']) == 30)): ?>
+							<textarea rows="10"><?php echo $item['content']; ?></textarea>
+						<?php else: ?>
+							<textarea rows="4"><?php echo $item['content']; ?></textarea>
+						<?php endif; ?>
+					</div>
+				<!--	<div class="ui-formCol3">
+						<a class="remove" onclick="removeField(this,<?php echo intval($item['fk_cms_item_type'])-1; ?>)">
+						<img src="<?php echo $this->basePath('/img/icon/circle-delete.png'); ?>" alt="delete">
+						</a>
+					</div>-->
+				</div>
+	<?php		endforeach;
+	//	var_dump($this->item);
+		endif;
+	?>
+
+	<div class="ui-formRow ui-submit-field">
+		<?php echo $this->formElement($form->get('submit')); ?>
+	</div>
+</div>
+
+<?php
+echo $this->form()->closeTag();
+?>

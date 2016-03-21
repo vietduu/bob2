@@ -1,0 +1,41 @@
+<h1 id="title">Administration</h1>
+
+<div id="dashboard">
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('bob', array('action' => 'index')));
+$form->setAttribute('method', 'post');
+
+echo $this->form()->openTag($form);
+?>
+
+<div class="ui-fieldset">
+    <div class="ui-formRow">
+        <?php $username = $form->get('username'); ?>
+        <div class="ui-formCol1"><?php echo $this->formLabel($username); ?></div>
+        <div class="ui-formCol2">
+            <?php echo $this->formInput($username); ?>
+            <span class="error-msg"><?php echo $this->formElementErrors($username); ?></span>
+        </div>
+    </div>
+    <div class="ui-formRow">
+        <?php $password = $form->get('password'); ?>
+        <div class="ui-formCol1"><?php echo $this->formLabel($password); ?></div>
+        <div class="ui-formCol2">
+            <?php echo $this->formInput($password); ?>
+            <span class="error-msg"><?php echo $this->formElementErrors($password); ?></span>
+        </div>
+    </div>
+
+    <div class="ui-formRow ui-submit-field">
+        <div class="ui-formCol1"></div>
+        <div class="ui-formCol2"><?php echo $this->formElement($form->get('submit')); ?></div>
+    </div>
+</div>
+
+<?php echo $this->form()->closeTag(); 
+if ($this->errorMessage != ''): 
+    echo "<script type='text/javascript'>alert(\"" . $this->errorMessage . "\")</script>";
+endif; ?>
+</div>

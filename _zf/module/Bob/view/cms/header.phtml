@@ -1,0 +1,37 @@
+<header>
+	<div id="nav-container">
+		<div id="navigation">
+			<span class="item">
+				<span class="label">Catalog</span>
+				<span class="sub-menu">
+					<a href="<?php echo $this->url('pet', array(
+                            'controller' => 'index',
+                            'action' => 'pet'
+                        )); ?>">PET</a>
+					<a href="/">Categories</a>
+				</span>
+			</span>
+
+			<span class="item">
+				<span class="label">Content</span>
+				<span class="sub-menu">
+					<a href="<?php echo $this->url('cms', array(
+                            'controller' => 'cms',
+                            'action' => 'index'
+                        )); ?>">CMS</a>
+				</span>
+			</span>
+
+			<span class="item">
+				<span class="label">System</span>
+				<span class="sub-menu">
+					<a href="/">Configuration</a>
+				</span>
+			</span>
+
+			<span class="item">
+				<span class="label">Logout</span>
+			</span>
+		</div>
+	</div>
+</header>

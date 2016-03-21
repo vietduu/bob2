@@ -1,0 +1,65 @@
+<?php
+$title = "Add new cms";
+$this->headTitle($title);
+?>
+
+<h1 id="title"><?php echo $this->escapeHtml($title); ?></h1>
+
+<div id="dashboard">
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('cms/add', array('action' => 'add')));
+$form->setAttribute('method', 'post');
+
+
+
+echo $this->form()->openTag($form);
+?>
+
+<div class="ui-fieldset">
+	<div class="ui-formRow">
+		<?php $fk_cms_folder_type = $form->get('fk_cms_folder_type'); ?>
+		<div class="ui-formCol1"><?php echo $this->formLabel($fk_cms_folder_type); ?></div>
+		<div class="ui-formCol2"><?php echo $this->formSelect($fk_cms_folder_type); ?></div>
+	</div>
+
+	<?php echo $this->formHidden($form->get('id_cms_folder')); ?>
+
+	<div class="ui-formRow">
+		<?php $key = $form->get('key'); ?>
+		<div class="ui-formCol1"><?php echo $this->formLabel($key); ?></div>
+		<div class="ui-formCol2">
+			<?php echo $this->formInput($key); ?>
+			<span class="error-msg"><?php echo $this->formElementErrors($key); ?></span>
+		</div>
+	</div>
+	<div class="ui-formRow">
+		<?php $description = $form->get('description'); ?>
+		<div class="ui-formCol1"><?php echo $this->formLabel($description); ?></div>
+		<div class="ui-formCol2">
+			<?php echo $this->formText($description); ?>
+			<span class="error-msg"><?php echo $this->formElementErrors($description); ?></span>
+		</div>
+	</div>
+	<div class="ui-formRow checkbox">
+		<?php $is_active = $form->get('is_active'); ?>
+		<div class="ui-formCol1"><?php echo $this->formLabel($is_active); ?></div>
+		<div class="ui-formCol2"><?php echo $this->formCheckbox($is_active); ?></div>
+	</div>
+	<div class="ui-formRow checkbox">
+		<?php $is_published = $form->get('is_published'); ?>
+		<div class="ui-formCol1"><?php echo $this->formLabel($is_published); ?></div>
+		<div class="ui-formCol2"><?php echo $this->formCheckbox($is_published); ?></div>
+	</div>
+
+	<?php echo $this->formElement($form->get('csrf')); ?>
+
+	<div class="ui-formRow ui-submit-field">
+		<div class="ui-formCol1"></div>
+		<div class="ui-formCol2"><?php echo $this->formElement($form->get('submit')); ?></div>
+	</div>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+</div>

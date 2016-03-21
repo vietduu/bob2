@@ -1,0 +1,18 @@
+<?php
+$title = "CMS Modification";
+$this->headTitle($title);
+
+?>
+
+<h1 id="title"><?php echo $this->escapeHtml($title); ?></h1>
+
+<div id="dashboard">
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('cms/edit', array('action' => 'edit')));
+$form->setAttribute('method', 'post');
+
+echo $this->partial('cms/detail');
+?>
+</div>

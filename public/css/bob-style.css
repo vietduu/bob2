@@ -1,0 +1,278 @@
+html {
+  font-family: sans-serif;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  margin: 0 auto 0 auto;
+  background-color: #F2F2F2;
+}
+
+header {
+  background-color: #333;
+  font-size: 14px;
+}
+
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  padding: 6px 16px 6px 7px;
+  margin: 5px;
+}
+
+header a:hover, header span:hover {
+  color: #01d4fa;
+  background-color: #111;
+}
+
+header #nav-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  cursor: pointer;
+}
+
+header #navigation {
+  float: right;
+  padding: 5px 0;
+  border-bottom: 1px solid #e8e8e8;
+  border-left: 1px solid #e8e8e8;
+  box-shadow: 0 0 7px #8a8a8a;
+}
+
+header #navigation > .item {
+  position: relative;
+  display: block;
+  float: left;
+  padding-left: 10px;
+  padding-right: 11px;
+  height: 25px;
+  white-space: nowrap;
+}
+
+header #navigation > .item:first-child {
+  padding-left: 12px;
+}
+
+header #navigation > .item > .label {
+  color: #fff;
+  line-height: 25px;
+  vertical-align: middle;
+}
+
+header .sub-menu {
+  padding: 0px;
+  left: 0;
+  display: none;
+  position: absolute;
+  background-color: #111;
+  overflow: visible;
+  z-index: 2;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+header .sub-menu a {
+  display: block;
+}
+
+/*
+ * PET dashboard
+ */
+#dashboard {
+  background-color: #fff;
+  margin: 10px 10px 10px 10px;
+  padding: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+th, td {
+  border: 1px solid #fff;
+  padding: 5px 0;
+}
+
+td {
+  padding-left: 10px;
+}
+
+th {
+  background-color: #E6E6E6;
+}
+
+tr:nth-child(even) {
+  background-color: #EFF8FB;
+}
+
+#title {
+  margin-left: 20px;
+
+}
+
+
+/*
+ * PET content
+ */
+#sku {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+#pet-title {
+  text-align: center;
+  font-size: 1em;
+  font-weight: 700;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#detail-info {
+  width: 50%;
+  float: left;
+}
+
+#detail-info > div:nth-child(n) {
+  margin-top: 15px;
+}
+
+/*
+ * images gallery
+ */
+#product-gallery {
+  float: left;
+  margin-left: 25px;
+}
+
+#product-gallery .gallery-image {
+  display: block;
+  margin: 10px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+#product-gallery .selected {
+  border: 1px solid #000;
+}
+
+.product-imagebox-layout {
+  padding-bottom: 20px;
+  float: left;
+  display: block;
+}
+
+.product-imagebox-layout #product-image img{
+  margin: 0 12px 12px 12px;
+  padding: 0 20px 0 25px;
+  cursor: zoom-in;
+  border-left: 1px solid #C0C0C0;
+}
+
+
+#product-thumbnail {
+  width:100%;
+  height:100%;
+  display:none;
+  position:fixed;
+  background-color:rgba(0,0,0,0.8);
+  overflow:visible;
+  text-align: center;
+  vertical-align: auto;
+  z-index: 1;
+}
+
+#description textarea{
+  height: 150px;
+}
+
+
+input[type=text], input[type=password], select {
+    padding: 5px 5px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    width: 100%;
+}
+
+textarea {
+    padding: 5px 5px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    width: 100%;
+}
+
+#submission button {
+    width: 30%;
+    padding: 14px 20px;
+    margin: 8px 30px;
+}
+
+.add-btn {
+    margin-bottom: 5px;
+    float: right;
+}
+
+
+/*
+ * CMS style
+ */
+.ui-formRow {
+  margin-top: 15px;
+}
+
+.ui-formCol1 {
+  width: 15%;
+}
+
+.ui-formCol2 {
+  width: 60%;
+}
+
+.ui-formCol3 {
+  margin-left: 20px;
+  vertical-align: middle;
+}
+
+.ui-formCol1, .ui-formCol2, .ui-formCol3 {
+  display: inline-block;
+}
+
+.ui-submit-field input {
+  margin-top: 10px;
+  width: 100px;
+  padding: 2px 0;
+}
+
+.error-msg ul{
+  color: red;
+  list-style-type: none;
+  -webkit-margin-before: -4px;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  -webkit-padding-start: 0;
+}
+
+.off {
+  display: none;
+}
