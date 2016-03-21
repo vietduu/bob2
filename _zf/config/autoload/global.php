@@ -31,6 +31,6 @@ return array(
         'scheme' => 'https',
         'port' => null,
         'host' => 'localhost',
-        'base_path' => '/alice2/public/',
+        'base_path' => '/bob2/public/',
     ),
 );
