@@ -62,7 +62,8 @@ class CmsController extends AbstractActionController
 		$view->count = $this->countCmsItemsOfFolder($id);
 		$view->items = $this->getFullCmsItemOfFolder($id);
 
-		if (0 <= $this->countCmsItemsOfFolder($id)) {
+		$array = [];
+		if (0 <= $this->countCmsItemsOfFolder($id)) {			
 			$this->createCmsItem($request);
 		} else {
 			throw new \Exception("Can't create/edit this cms item");
@@ -99,6 +100,10 @@ class CmsController extends AbstractActionController
 		return $view;
 	}
 
+	public function imageAction(){
+		$view = new ViewModel();
+		return $view;
+	}
 
 	public function deleteCmsFolder($id){
 		$itemService = ConcreteServiceConfig::getCmsItemServiceConfig($this);
@@ -172,7 +177,7 @@ class CmsController extends AbstractActionController
 	public function createCmsItem($request) {
 		if($request->isXmlHttpRequest())
       	{
-			$item1 = explode(",", $_POST['array']);
+			$item1 = explode("||", $_POST['array']);
 
 			$array1 = [];
 			foreach($item1 as $item){
@@ -192,7 +197,7 @@ class CmsController extends AbstractActionController
 				$cmsItem->exchangeArray($array2);
 				$this->saveCmsItem($cmsItem);
 			}
-			$this->flashMessenger()->addMessage('CMS items are saved successfully!');	
+			$this->flashMessenger()->addMessage('CMS items are saved successfully!');
 		}
 	}
 

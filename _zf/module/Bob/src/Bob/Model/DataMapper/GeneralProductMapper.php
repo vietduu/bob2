@@ -98,4 +98,15 @@ class GeneralProductMapper extends \Bob\Model\InterfaceHelper\AbstractMapper
 		$result = $statement->execute(array($id));
 		return $result->getResource()->fetchAll();
 	}
+
+	public function getFullInformationByUrl($url)
+	{
+		$sql = "SELECT * FROM general_product gp "
+				. "LEFT JOIN product_type pt ON (gp.product_type_fk = pt.id) "
+				. "LEFT JOIN invoice_type it ON (it.invoice_type_id = gp.invoice_type_fk) "
+				. "WHERE pt.product_type_url = ? || it.invoice_type_url = ?";
+		$statement = $this->getAdapter()->query($sql);
+		$result = $statement->execute(array($url, $url));
+		return $result->getResource()->fetchAll();
+	}
 }

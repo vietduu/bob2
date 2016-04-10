@@ -148,6 +148,15 @@ class Module implements AutoloaderProviderInterface
                             ),
                         ),
                     ),
+                    'image-manager' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/image',
+                            'defaults' => array(
+                                'action' => 'image',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ));

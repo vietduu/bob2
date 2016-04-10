@@ -7,11 +7,11 @@
         <a href="<?php echo $this->url('cms/add', array(
                             'controller' => 'cms',
                             'action' => 'add'
-                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974708_add.png'); ?>" alt="add" /></a>
+                        )); ?>"><img src="<?php echo "http://inkiendong.com/" . $this->basePath('/img/icon/1455974708_add.png'); ?>" alt="add" /></a>
         <a href="<?php echo $this->url('cms', array(
                             'controller' => 'cms',
                             'action' => 'index'
-                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974674_reload.png'); ?>" alt="reload" /></a>
+                        )); ?>"><img src="<?php echo "http://inkiendong.com/" . $this->basePath('/img/icon/1455974674_reload.png'); ?>" alt="reload" /></a>
     </div>
     <table>
         <tr>
@@ -40,12 +40,12 @@
                             'controller' => 'cms',
                             'action' => 'edit',
                             'id' => $folder['id_cms_folder'],
-                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455974233_Settings.png'); ?>" alt="edit" /></a>
+                        )); ?>"><img src="<?php echo "http://inkiendong.com/" . $this->basePath('/img/icon/1455974233_Settings.png'); ?>" alt="edit" /></a>
         		<a href="<?php echo $this->url('cms/delete', array(
                             'controller' => 'cms',
                             'action' => 'delete',
                             'id' => $folder['id_cms_folder'],
-                        )); ?>"><img src="<?php echo $this->basePath('/img/icon/1455973512_Delete.png'); ?>" alt="delete" /></a>
+                        )); ?>"><img src="<?php echo "http://inkiendong.com/" . $this->basePath('/img/icon/1455973512_Delete.png'); ?>" alt="delete" /></a>
 	        </td>
         </tr>
     <?php endforeach; ?>

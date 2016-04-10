@@ -79,27 +79,10 @@ class CmsFolder implements \Bob\Model\InterfaceHelper\ModelInterface, InputFilte
                          'name'    => 'StringLength',
                          'options' => array(
                              'encoding' => 'UTF-8',
-                             'min'      => 1,
-                             'max'      => 255,
                          ),
                      ),
                  ),
             )));
-
-       /*     $inputFilter->add($factory->createInput(array(
-                'name'     => 'fk_cms_folder_type',
-                'validators' => array(
-                    array(
-                        'name'    => 'InArray',
-                        'options' => array(
-                            'haystack' => array(1,3),
-                            'messages' => array(
-                                'notInArray' => 'Please select folder type!' 
-                            ),
-                        ),
-                    ),
-            	)
-            )));*/
 
             $this->inputFilter = $inputFilter;
 		}
