@@ -2,16 +2,13 @@
 
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle('In Kiến Đông ')->setSeparator(' - ')->setAutoEscape(false) ?>
-
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => "http://inkiendong.com/" . $this->basePath() . '/img/png/favicon16.ico'))
-                        ->prependStylesheet("http://inkiendong.com/" . $this->basePath('css/bob-style.css')); ?>
+        <?php echo $this->headLink()
+                        ->prependStylesheet("http://inkiendong.com/" . $this->basePath('css/bob-style.css')) ?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
@@ -27,26 +24,8 @@
 
     </head>
     <body>
-        <?php echo $this->partial('cms/header'); ?>
-
         <div class="container">
-            <?php
-            $children = $this->viewModel()
-                 ->getCurrent()
-                 ->getChildren();
- 
-            $currentView = $children[0];
- 
-            if (isset($currentView->flashMessenger) && count($currentView->flashMessenger)) : ?>
-                <ul class="flashMessages">
-                <?php foreach ($currentView->flashMessenger as $flashMessenger) : ?>
-                    <li><?php echo $flashMessenger; ?></li>
-                <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-
-            <?php 
-            echo $this->content; ?>
+            <?php echo $this->content; ?>
         </div>
 
         <?php echo $this->inlineScript() ?>

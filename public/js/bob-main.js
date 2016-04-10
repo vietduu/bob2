@@ -99,7 +99,7 @@ $(document).ready(function(){
 
 		var arrayString = array[0];
 		for (var i=1; i<array.length; i++){
-			arrayString = arrayString + ',' + array[i];
+			arrayString = arrayString + '||' + array[i];
 		}
 
 		$.ajax({
@@ -121,6 +121,80 @@ $(document).ready(function(){
 		var url = window.location.href;
 		window.location=url.substring(url.lastIndexOf("/delete"), 0);
 	});
+
+
+	resizeImageManager();
+	$(window).resize(function(){
+		resizeImageManager();
+		if (document.getElementById("open-file-container").style.display == "block"){
+			openFile();
+		}
+	});
+
+
+	$("#open-btn").on("click", function(){
+		document.getElementById('image-manager-container').style.display = "block";
+	});
+
+	$("#image-close").on("click", function(){
+		document.getElementById('image-manager-container').style.display = "none";
+	});
+
+
+	$("#image-menu-bar ul").each(function(){
+		$(this).children("img.folder-name").click(function(){
+			if ($(this).siblings("li").css("display") == "block"){
+				$(this).attr("src", "../../public/img/icon/close-folder.png");
+				$(this).siblings(":not(span)").slideUp("50");
+				$(this).parent().children("span").css("font-weight", "normal");
+			}
+			if ($(this).siblings("li").css("display") == "none"){
+				$(this).attr("src", "../../public/img/icon/open-folder.png");
+				$(this).siblings(":not(span)").slideDown("50");
+				$(this).css("font-weight", "700");
+				$(this).parent().children("span").css("font-weight", "700");
+			}
+		});
+	});
+
+	$(".submit-container button[type='reset']").click(function(e){
+		e.stopPropagation();
+		$("#open-file-container").css("display", "none");
+	});
+
+	$(".submit-container button[type='button']").click(function(e){
+		e.stopPropagation();
+		if ($("#open-file-popup input[type='file']").val() == ""){
+			$("#open-file-popup").append("<div class='notification'>Please select image...</div>");
+		} 
+		if ($("#open-file-popup input[type='file']").val() != ""){
+			$(".notification").remove();
+			var input = document.getElementById("file");
+			var file = input.files[0];
+
+			var data = new FormData();
+			data.append("url", getRelativeImagePath($("#image-url-text > span#image-url__display").text()));
+			data.append("image", file);
+			
+			$.ajax({
+				url: "http://localhost/alice2/public/js/upload.php",
+				type: "POST",
+				data: data,
+				processData: false,
+				contentType: false
+			}).done(function(data){
+			//	console.log(data);
+			//	$("#image-manager-popup").load($("#image-manager-popup").html());
+			//	console.log($("#image-manager-popup").html());
+			//	$("#image-manager-popup").html(data);
+				$("#open-file-container").css("display", "none");
+			}).fail(function(jqXHR, textStatus, errorThrown){
+				console.log(errorThrown);
+			}).always(function(){
+				console.log("Complete");
+			});
+		}
+	});
 });
 
 
@@ -139,6 +213,35 @@ function createTextbox(id, name) {
 
 	return data;
 }
+
+function resizeImageManager(){
+	var screenHeight = window.innerHeight;
+	var screenWidth = window.innerWidth;
+
+	$("#image-manager-popup").width(screenWidth * 8/10);
+	$("#image-manager-popup").height(screenHeight * 7.5/10);
+	var popupWidth = $("#image-manager-popup").width();
+	var popupHeight = $("#image-manager-popup").height();
+
+	var popupTop = (screenHeight - popupHeight) * 1.0/2;
+	var popupLeft = (screenWidth - popupWidth) * 1.0/2;
+
+	$("#image-manager-popup").css("top", popupTop);
+	$("#image-manager-popup").css("left", popupLeft);
+
+	$("#image-menu-bar").width(popupWidth * 3/10);
+	$("#image-menu-bar").height(popupHeight - $("#image-url-text").height());
+
+	$("#image-list").width(popupWidth - $("#image-menu-bar").width() - 5);
+	$("#image-list").height(popupHeight * 5.5/10);
+
+	$("#image-preview").width($("#image-list").width());
+	$("#image-preview").height(popupHeight - $("#image-list").height() - $("#image-url-text").height() - 5);
+
+	$("#image-close").css("top", popupTop-8);
+	$("#image-close").css("left", popupLeft + popupWidth - 7);
+}
+
 
 function createTextarea(id, name, rows="4") {
 	var data = 	"<div class='ui-formRow' data-id=" + id + ">"

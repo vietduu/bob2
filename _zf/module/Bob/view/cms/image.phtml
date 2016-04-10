@@ -1,0 +1,178 @@
+<?php
+    $publicFolder = "http://inkiendong.com/" . $this->basePath() . "/";
+	$root = "/home/inkie982/public_html/" . $this->basePath() . "/";
+
+	function scanDirectory($dir, $host) {
+		$_SLASH = "/";
+		$directoryTree = [];
+
+		$parentDir = scandir($dir);				
+		foreach ($parentDir as $key => $value){
+			if (!in_array($value, array("css","fonts","js"))){
+				if (!in_array($value, array(".",".."))){
+					if (is_dir($dir . $value . $_SLASH)){
+						$directoryTree[$dir.$value . "|" . $host.$value] = scanDirectory($dir . $value . $_SLASH, $host . $value . $_SLASH);
+					}
+					else {
+					$directoryTree[$value] = $dir.$value . "|" . $host.$value;
+					}
+				}
+			}
+		}
+		return $directoryTree;
+	}
+?>
+
+
+<div id="image-manager-container">
+<div id="image-manager-popup">
+	<div id="image-url-text">
+		<span id="image-url__display"></span> |
+		<span id="image__open" onClick="openFile()">Add</span>
+	</div>
+	<div id="image-menu-bar">
+	<?php
+	function displayDirectory($dir, $baseUrl) {
+		foreach ($dir as $key => $value){
+			if (is_array($value)){ ?>		
+				<ul><img class="folder-name" src="<?php echo $baseUrl . '/img/icon/open-folder.png'; ?>"/><span onClick='listFolder("<?php echo $key; ?>", <?php echo json_encode($value); ?>)'>
+						<?php $folderCompositeName = explode("|", $key);
+						$folderUrl = $folderCompositeName[1];
+						$folderName = substr($folderUrl, strripos($folderUrl, "/")+1);
+						echo $folderName; ?>
+					</span>
+					<?php displayDirectory($value, $baseUrl); ?>
+				</ul>
+			<?php }
+				else { 
+					$compositeArray = explode("|", $value); ?>
+					<li onClick="viewFile('<?php echo $compositeArray[1]; ?>')">
+					<?php
+						echo $key;
+					?>
+					</li>
+			<?php }
+		}
+	}
+
+	displayDirectory(scanDirectory($root, $publicFolder), "http://inkiendong.com/" . $this->basePath());
+?>
+
+	</div>
+	<div id="image-list">
+		
+
+	</div>
+	<div id="image-preview">
+		<img src=""/>
+
+	</div>
+</div>
+<img id="image-close" src="<?php echo "http://inkiendong.com/" . $this->basePath('/img/icon/circle-delete.png'); ?>" />
+	<div id="open-file-container">
+	<div id="open-file-popup">
+		<form name="uploadImage" method="POST" action="">
+			<div>Please choose an image to upload:</div>
+			<input type="file" name="file-open" id="file" />
+			<div class="submit-container">
+				<button type="reset" name="cancel">Cancel</button>
+				<button type="button" name="upload">Upload</button>
+			</div>
+		</form>
+	</div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	function listFolder(key, array){
+		var folderCompositeName = key.split("|");
+		var folderUrl = folderCompositeName[1];
+		$("#image-url-text > span#image-url__display").text(changeImagePath(folderUrl + "/"));
+
+		var formatArray = "\"" + array + "\"";
+		var decodeArray = JSON.parse(formatArray);
+		console.log(array);
+		var imageList = [];
+		getArray(imageList, array);
+		$("#image-list").empty();
+		$("#image-preview img").attr("src", "");
+
+		imageList = $.map(imageList, function(url){
+			return url.substring(url.lastIndexOf('|')+1);
+		});
+
+		var container = document.getElementById("image-list");
+		for (var i in imageList){
+			createImageElement(container, imageList[i]);
+		}
+		
+		$("#image-list img").each(function(){
+			$(this).click(function(){
+				$("#image-preview img").attr("src", $(this).attr("src"));
+				$("#image-url-text > span#image-url__display").text(changeImagePath($(this).attr("src")));
+			});
+		});
+		$("#image-preview").css("display", "block");
+	}
+
+	function getArray(arr, array){
+		for(var x in array){
+			if (array[x] instanceof Object){
+				getArray(arr, array[x]);
+			} else {
+				arr.push(array[x]);
+			}
+		}
+	}
+
+	function createImageElement(container, imageUrl){
+		var imageContainer = document.createElement("img");
+		imageContainer.setAttribute("src", imageUrl);
+		imageContainer.onload = function(){
+			if (imageContainer.width >= container.offsetWidth*2.0/5){
+				imageContainer.setAttribute("width", "20%");
+			}
+		};
+		container.appendChild(imageContainer);
+
+		
+	}
+
+	function viewFile(path){
+		$("#image-preview").css("display", "block");
+		$("#image-preview img").attr("src", path);
+		$("#image-url-text > span#image-url__display").text(changeImagePath(path));
+	}
+
+	function openFile(){
+		var screenHeight = window.innerHeight;
+		var screenWidth = window.innerWidth;
+		$("#open-file-container").width(screenWidth);
+		$("#open-file-container").height(screenHeight);
+
+		$("#open-file-container").css("display", "block");
+		
+
+		var popupWidth = $("#open-file-popup").width();
+		var popupHeight = $("#open-file-popup").height();
+
+		var popupTop = (screenHeight - popupHeight) * 1.0/2;
+		var popupLeft = (screenWidth - popupWidth) * 1.0/2;
+
+		$("#open-file-popup").css("top", popupTop);
+		$("#open-file-popup").css("left", popupLeft);
+	}
+
+	function changeImagePath(imageUrl, initText="public", replaceText="[BASE_MEDIA_URL]"){
+		var firstImagePosition = imageUrl.indexOf(initText) + initText.length;
+		var eliminatedText = imageUrl.substring(0, firstImagePosition);
+		return imageUrl.replace(eliminatedText, replaceText);
+	}
+
+	function getRelativeImagePath(imageUrl, redundantString="[BASE_MEDIA_URL]"){
+		var firstImagePosition = imageUrl.indexOf(redundantString) + redundantString.length;
+		var lastImagePosition = imageUrl.lastIndexOf("/");
+		return imageUrl.substring(firstImagePosition, lastImagePosition+1);
+	}
+</script>
