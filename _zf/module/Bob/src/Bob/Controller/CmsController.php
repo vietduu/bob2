@@ -181,7 +181,7 @@ class CmsController extends AbstractActionController
 
 			$array1 = [];
 			foreach($item1 as $item){
-				$item2 = explode("&", $item);
+				$item2 = explode("&&", $item);
 				array_push($array1, $item2);
 			}
 

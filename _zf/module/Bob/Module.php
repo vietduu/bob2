@@ -6,14 +6,11 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 namespace Bob;
-
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\ModuleManager\ModuleManager;
-
 class Module implements AutoloaderProviderInterface
 {
     public function init(ModuleManager $mm)
@@ -26,7 +23,6 @@ class Module implements AutoloaderProviderInterface
             $controller = $e->getTarget();
             $controllerName = array_pop(explode('\\', $routeMatch->getParam('controller')));
             $actionName = strtolower($routeMatch->getParam('action'));
-
             // Use the layout assigned to the action
             if(isset($config['layouts'][$namespace]['controllers'][$controllerName]['actions'][$actionName]))
             {
@@ -42,10 +38,8 @@ class Module implements AutoloaderProviderInterface
             {
                 $controller->layout($config['layouts'][$namespace]['default']);
             }
-
         }, 10);
     }
-
     public function getAutoloaderConfig()
     {
         return array(
@@ -54,13 +48,12 @@ class Module implements AutoloaderProviderInterface
             ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-		    // if we're in a namespace deeper than one level we need to fix the \ in the path
+            // if we're in a namespace deeper than one level we need to fix the \ in the path
                     __NAMESPACE__ => __DIR__ . '/src/' . str_replace('\\', '/' , __NAMESPACE__),
                 ),
             ),
         );
     }
-
     public function getConfig()
     {
         $config = include __DIR__ . '/config/module.config.php';
@@ -162,13 +155,28 @@ class Module implements AutoloaderProviderInterface
         ));
         return $config;
     }
-
     public function onBootstrap(MvcEvent $e)
     {
         // You may not need to do this if you're doing it elsewhere in your
         // application
         $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager->attach('dispatch', array($this, 'loadConfiguration'), 100);
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+    }
+
+    public function loadConfiguration(MvcEvent $e)
+    {
+        $sm  = $e->getApplication()->getServiceManager();
+     
+        $controller = $e->getRouteMatch()->getParam('controller');
+        if (0 !== strpos($controller, __NAMESPACE__, 0)) {
+            //if not this module
+            return;
+        }
+     
+        //if this module 
+        $exceptionstrategy = $sm->get('ViewManager')->getExceptionStrategy();
+        $exceptionstrategy->setExceptionTemplate('error/error-variation');
     }
 }

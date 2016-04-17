@@ -17,15 +17,15 @@
 		<div id="product-gallery">
 		<?php foreach ($images as $image): ?>
 			<span class="gallery-image">
-			<img src="<?php echo "http://inkiendong.com/" . $this->basePath($image['source']); ?>" title="<?php echo $image['title']; ?>" alt="<?php echo $image['alt_tag']; ?>" width="44px" />
+			<img src="<?php echo $this->basePath($image['source']); ?>" title="<?php echo $image['title']; ?>" alt="<?php echo $image['alt_tag']; ?>" width="44px" />
 			</span>
 		<?php endforeach; ?>
 		</div>
 		<span id="product-thumbnail" style="display:none">
-			<img src="<?php echo "http://inkiendong.com/" . $this->basePath($product['source']); ?>" title="<?php echo $product['title']; ?>" alt="<?php echo $product['alt_tag']; ?>"/>
+			<img src="<?php echo $this->basePath($product['source']); ?>" title="<?php echo $product['title']; ?>" alt="<?php echo $product['alt_tag']; ?>"/>
 		</span>
 		<span id="product-image">
-			<img src="<?php echo "http://inkiendong.com/" . $this->basePath($product['source']); ?>" title="<?php echo $product['title']; ?>" alt="<?php echo $product['alt_tag']; ?>" width="350px" />
+			<img src="<?php echo $this->basePath($product['source']); ?>" title="<?php echo $product['title']; ?>" alt="<?php echo $product['alt_tag']; ?>" width="350px" />
 		</span>
 	</div>
 

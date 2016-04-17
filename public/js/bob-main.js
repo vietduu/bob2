@@ -93,7 +93,7 @@ $(document).ready(function(){
 					content = "";
 				}
 			}
-			var row = 'id_cms_item=' + id_cms_item +'&fk_cms_folder=' + fk_cms_folder + '&fk_cms_item_type=' + fk_cms_item_type + '&content=' + content;
+			var row = 'id_cms_item=' + id_cms_item +'&&fk_cms_folder=' + fk_cms_folder + '&&fk_cms_item_type=' + fk_cms_item_type + '&&content=' + content;
 			array.push(row);
 		});
 
