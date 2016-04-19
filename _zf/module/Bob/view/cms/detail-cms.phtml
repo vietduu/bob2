@@ -51,12 +51,15 @@ echo $this->form()->openTag($form); ?>
 					</div>-->
 				</div>
 	<?php		endforeach;
-	//	var_dump($this->item);
 		endif;
 	?>
 
 	<div class="ui-formRow ui-submit-field">
 		<?php echo $this->formElement($form->get('submit')); ?>
+	</div>
+	<div>
+		<div id="open-btn">Image search</div>
+        <?php echo $this->partial('cms/image'); ?>
 	</div>
 </div>
 

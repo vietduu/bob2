@@ -10,18 +10,19 @@
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/png/favicon16.ico'))
-                        ->prependStylesheet($this->basePath('css/bob-style.css')) ?>
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->serverUrl() . $this->basePath() . '/img/png/favicon16.ico'))
+                        ->prependStylesheet($this->serverUrl() . $this->basePath('css/bob-style.css')) ?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
-            ->prependFile($this->basePath('js/bob-main.js'))
-            ->prependFile($this->basePath('js/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/modernizr-custom.js'))
-            ->prependFile($this->basePath('js/lightbox.js'))
-            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath('js/html5shiv.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath('js/jquery-1.12.0.min.js'))
+            ->prependFile($this->serverUrl() . $this->basePath('js/bob-main.js'))
+            ->prependFile($this->serverUrl() . $this->basePath('js/main.js'))
+            ->prependFile($this->serverUrl() . $this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->serverUrl() . $this->basePath('js/modernizr-custom.js'))
+            ->prependFile($this->serverUrl() . $this->basePath('js/lightbox.js'))
+            ->prependFile($this->serverUrl() . $this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->serverUrl() . $this->basePath('js/html5shiv.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->serverUrl() . $this->basePath('js/jquery-1.12.0.min.js'))
         ; ?>
 
     </head>

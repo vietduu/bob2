@@ -14,7 +14,7 @@ class CmsItemMapper extends \Bob\Model\InterfaceHelper\AbstractMapper
 		settype($entity->id_cms_item, "int");
 		settype($entity->fk_cms_folder, "int");
 		settype($entity->fk_cms_item_type, "int");
-		settype($entity->content, "string");
+	//	settype($entity->content, "string");
 		settype($entity->created_at, "string");
 	}
 
