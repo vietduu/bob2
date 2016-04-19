@@ -5,6 +5,7 @@ use Zend\View\Model\ViewModel;
 use Bob\Helper\ServiceConfigHelper;
 use Bob\Helper\ConcreteServiceConfig;
 use Bob\Content\Form\LoginForm;
+use Bob\Content\Form\PetDetailForm;
 use Bob\Model\DataObject\AclUser;
 
 class IndexController extends AbstractActionController
@@ -67,6 +68,11 @@ class IndexController extends AbstractActionController
 		$view->images = $images;
 		$view->all_product_types = $this->fetchAllProductTypes();
 		$view->invoiceType = $this->fetchAllInvoiceTypes();
+
+		$adapter = ServiceConfigHelper::getAdapter($this);
+		$form = new PetDetailForm($adapter);
+		$form->get('submit')->setValue('Save');
+		$view->form = $form;
 
 		return $view;
 	}
