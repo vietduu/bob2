@@ -9,8 +9,14 @@ echo $this->form()->openTag($form);
 
 <h1 id="title">Administration PET</h1>
 
-<div id="dashboard">
+<div id="dashboard" class="pet-detail__container">
 <?php echo $this->formCollection($form); ?>
+<div class="illustration-image__container">
+	<div class="illustration-image">
+		
+	</div>
+	<input class="open-file" type="file" name="file-open-container" />
+</div>
 </div>
 
 <?php echo $this->form()->closeTag(); ?>

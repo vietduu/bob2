@@ -447,3 +447,39 @@ textarea {
 #open-file-popup button[type=reset] {
   margin-right: 7em;
 }
+
+
+.pet-detail__container fieldset {
+  display: block;
+  width: 68%;
+  margin-right: 30px;
+  margin-left: 20px;
+  border: 0;
+  float: left;
+}
+
+.pet-detail__container span {
+  padding-top: 20px;
+  padding-bottom: 4px;
+  display: block;
+}
+
+.pet-detail__container input[type='submit']{
+  margin-top: 20px;
+}
+
+.illustration-image__container {
+  float: right;
+  margin-right: 20px;
+}
+
+.illustration-image {
+  width: 300px;
+  height: 450px;
+  border: 1px solid #000;
+  margin-top:25px;
+}
+
+.open-file {
+  margin-top: 20px;
+}

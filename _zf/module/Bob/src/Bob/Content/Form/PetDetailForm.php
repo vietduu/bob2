@@ -15,14 +15,35 @@ class PetDetailForm extends Form
 		$this->setAttribute('method','post');
 
 		$this->add(array(
-			'name' => 'fk_cms_item_type',
+			'name' => 'product_type',
 			'type' => 'Zend\Form\Element\Select',
 			'options' => array(
-				'label' => 'CMS item type:',
+				'label' => 'Loại sản phẩm:',
 				'empty_option' => 'Please select...',
-				'value_options' => $this->getAllCmsItemTypes(),
+				'value_options' => $this->getAllProductTypes(),
 			)
 		));
+
+        $this->add(array(
+            'name' => 'invoice_type',
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                'label' => 'Loại hóa đơn:',
+                'empty_option' => 'Please select...',
+                'value_options' => $this->getAllInvoiceTypes(),
+            )
+        ));
+
+        for ($i = 0; $i < count($this->getAllAttributeTypes()); $i++){
+            $this->add(array(
+                'name' => $this->getAllAttributeTypes()[$i],
+                'type' => 'Text',
+                'options' => array(
+                    'label' => $this->getAllAttributeTypes()[$i] . ":",
+                    'place_holder' => 'Please select...',
+                )
+            ));
+        }
 
 		$this->add(array(
              'name' => 'submit',
@@ -46,12 +67,42 @@ class PetDetailForm extends Form
         parent::populateValues($data);
     }
 
-    public function getAllCmsItemTypes(){
+    public function getAllProductTypes(){
     	$adapter = $this->adapter;
-    	$sql = "SELECT * FROM cms_item_type";
+    	$sql = "SELECT * FROM product_type";
     	$statement = $adapter->query($sql);
         $result    = $statement->execute();
         $types 	   = $result->getResource()->fetchAll();
+
+        $selectData = array();
+        foreach ($types as $type) {
+            $selectData[] = $type[1];
+        }
+
+        return $selectData;
+    }
+
+    public function getAllInvoiceTypes(){
+        $adapter = $this->adapter;
+        $sql = "SELECT * FROM invoice_type";
+        $statement = $adapter->query($sql);
+        $result    = $statement->execute();
+        $types     = $result->getResource()->fetchAll();
+
+        $selectData = array();
+        foreach ($types as $type) {
+            $selectData[] = $type[1];
+        }
+
+        return $selectData;
+    }
+
+    public function getAllAttributeTypes(){
+        $adapter = $this->adapter;
+        $sql = "SELECT * FROM attribute_type";
+        $statement = $adapter->query($sql);
+        $result    = $statement->execute();
+        $types     = $result->getResource()->fetchAll();
 
         $selectData = array();
         foreach ($types as $type) {
