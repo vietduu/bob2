@@ -61,7 +61,9 @@ class IndexController extends AbstractActionController
 		$url = $request->getUri();
 		$params = substr($url, strripos($url,'/')+1);
 		$product_id = substr($params, 0, -5);
+
 		$view->product_id = $product_id;
+
 		$product_info = $this->getFullInformationById($product_id);
 		$view->currentProduct = $product_info;
 		$images = $this->getImagesFromProductId($product_id);
@@ -72,6 +74,10 @@ class IndexController extends AbstractActionController
 		$adapter = ServiceConfigHelper::getAdapter($this);
 		$form = new PetDetailForm($adapter);
 		$form->get('submit')->setValue('Save');
+
+		$view->attributeTypes = $this->getAllAttributeTypes();
+		$view->productAttribute = $this->getProductAttribute($product_id);
+		
 		$view->form = $form;
 
 		return $view;
@@ -139,5 +145,15 @@ class IndexController extends AbstractActionController
 	public function authenticateUser($name, $pwd){
 		$user = ConcreteServiceConfig::getAclServiceConfig($this);
 		return $user->authenticateUser($name, $pwd);
+	}
+
+	public function getAllAttributeTypes(){
+		$attributeTypes = ConcreteServiceConfig::getAttributeTypeServiceConfig($this);
+		return $attributeTypes->getAll();
+	}
+
+	public function getProductAttribute($id){
+		$attribute = ConcreteServiceConfig::getAttributeServiceConfig($this);
+		return $attribute->getProductAttribute($id);
 	}
 }

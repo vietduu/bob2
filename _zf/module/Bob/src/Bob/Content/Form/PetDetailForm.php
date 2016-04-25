@@ -40,8 +40,10 @@ class PetDetailForm extends Form
                 'type' => 'Text',
                 'options' => array(
                     'label' => $this->getAllAttributeTypes()[$i] . ":",
-                    'place_holder' => 'Please select...',
-                )
+                ),
+                'attributes' => array(
+                    'placeholder' => $this->getAllAttributeTypes()[$i],
+                ),
             ));
         }
 
@@ -106,7 +108,7 @@ class PetDetailForm extends Form
 
         $selectData = array();
         foreach ($types as $type) {
-            $selectData[] = $type[2];
+            $selectData[] = $type[1];
         }
 
         return $selectData;

@@ -71,4 +71,18 @@ class ConcreteServiceConfig
 			'acl_user',
 			'Bob\Model\DataMapper\AclUserMapper');
 	}
+
+	public static function getAttributeTypeServiceConfig($owner){
+		return ServiceConfigHelper::getServiceConfig($owner,
+			'Bob\Model\DataObject\AttributeType',
+			'attribute_type',
+			'Bob\Model\DataMapper\AttributeTypeMapper');
+	}
+
+	public static function getAttributeServiceConfig($owner){
+		return ServiceConfigHelper::getServiceConfig($owner,
+			'Bob\Model\DataObject\Attribute',
+			'attribute',
+			'Bob\Model\DataMapper\AttributeMapper');
+	}
 }
