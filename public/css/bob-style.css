@@ -89,7 +89,7 @@ header .sub-menu a {
  */
 #dashboard {
   background-color: #fff;
-  margin: 10px 10px 10px 10px;
+  margin: 0px 10px 10px 10px;
   padding: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -465,19 +465,21 @@ textarea {
 }
 
 .pet-detail__container input[type='submit']{
+  clear: both;
   margin-top: 20px;
 }
 
-.illustration-image__container {
-  float: right;
+.pet-images {
   margin-right: 20px;
 }
 
 .illustration-image {
-  width: 250px;
-  height: 400px;
+  width: 200px;
+  height: 300px;
   border: 1px solid #000;
-  margin-top:25px;
+  margin-top: 20px;
+  margin-right: 20px;
+  float: left;
 }
 
 .open-file {
@@ -487,21 +489,42 @@ textarea {
 
 #pet-submenu ul {
   list-style-type: none;
-  background-color: #fff;
   line-height: 25px;
-  padding: 4px 10px 20px 10px;
-  margin: 10px 10px -30px 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  padding: 4px 10px 0px 10px;
+  margin: 10px 10px 0px 10px;
   overflow: auto;
-  width: 15%;
+  background-color: #F2F2F2;
   position: relative;
 }
 
 #pet-submenu li {
   position: relative;
   float: left;
-  width: 50%;
+  width: 7%;
+  background-color: #E6E6E6;
   text-align: center;
+  margin-right: 5px;
+  -webkit-border-top-left-radius: 7px;
+  -moz-border-radius-topleft: 7px;
+  border-top-left-radius: 7px;
+  -webkit-border-top-right-radius: 7px;
+  -moz-border-radius-topright: 7px;
+  border-top-right-radius: 7px;
+}
+
+#pet-submenu li:hover {
+  background-color: #fff;
+}
+
+#pet-submenu li.active {
+  background-color: #fff;
+  font-weight: bold;
+}
+
+.pet-detail__container > div.enable {
+  display: block;
+}
+
+.pet-detail__container > div {
+  display: none;
 }

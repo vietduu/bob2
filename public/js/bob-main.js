@@ -183,16 +183,57 @@ $(document).ready(function(){
 				processData: false,
 				contentType: false
 			}).done(function(data){
-			//	console.log(data);
-			//	$("#image-manager-popup").load($("#image-manager-popup").html());
-			//	console.log($("#image-manager-popup").html());
-			//	$("#image-manager-popup").html(data);
 				$("#open-file-container").css("display", "none");
 			}).fail(function(jqXHR, textStatus, errorThrown){
 				console.log(errorThrown);
 			}).always(function(){
 				console.log("Complete");
 			});
+		}
+	});
+
+
+
+	$("#pet-submenu li:nth-child(1)").addClass("active");
+	$("#pet-config").addClass("enable");
+
+	$("#pet-submenu li").click(function(){
+		$("#pet-submenu li").removeClass("active");
+		$(this).addClass("active");
+		var petSubname = $(this).text().toLowerCase();
+		$(".pet-detail__container > div").removeClass("enable");
+		$("#pet-" + petSubname).addClass("enable");
+	});
+
+	$(".open-file").change(function(e){
+	//	e.stopPropagation();
+		if ($(this).val() == ""){
+			$(this).parent().append("<div class='notification'>Please select image...</div>");
+		} 
+		if ($(this).val() != ""){
+			$(".notification").remove();
+			var imageInput = document.getElementsByClassName("open-file")[0];
+			var imageFile = imageInput.files[0];
+
+			var data = new FormData();
+			data.append("url", $(this).text());
+			data.append("image", imageFile);
+			
+			alert($(this).val());
+
+		/*	$.ajax({
+				url: "http://localhost/bob2/public/js/upload.php",
+				type: "POST",
+				data: data,
+				processData: false,
+				contentType: false
+			}).done(function(data){
+				console.log(data);
+			}).fail(function(jqXHR, textStatus, errorThrown){
+				console.log(errorThrown);
+			}).always(function(){
+				console.log("Complete");
+			});*/
 		}
 	});
 });

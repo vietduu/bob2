@@ -12,22 +12,14 @@ echo $this->form()->openTag($form);
 <div id="pet-submenu">
 	<ul>
 		<li>Config</li>
+		<li>Category</li>
 		<li>Images</li>
 	</ul>
 </div>
 <div id="dashboard" class="pet-detail__container">
+
 <?php if ($this->product_id == 0): ?>
-<div class="ui-fieldset">
-	<div class="ui-formRow">
-		<?php $product_type = $form->get('product_type'); ?>
-		<div class="ui-formCol1"><?php echo $this->formLabel($product_type); ?></div>
-		<div class="ui-formCol2"><?php echo $this->formSelect($product_type); ?></div>
-	</div>
-	<div class="ui-formRow">
-		<?php $invoice_type = $form->get('invoice_type'); ?>
-		<div class="ui-formCol1"><?php echo $this->formLabel($invoice_type); ?></div>
-		<div class="ui-formCol2"><?php echo $this->formSelect($invoice_type); ?></div>
-	</div>
+<div id="pet-config" class="ui-fieldset">
 	<?php foreach ($this->attributeTypes as $attribute): ?>
 		<?php $attr = $form->get($attribute['attribute_type_name']); ?>
 		<div class="ui-formRow">
@@ -41,29 +33,9 @@ echo $this->form()->openTag($form);
 		<div class="ui-formCol2"><?php echo $this->formElement($form->get('submit')); ?></div>
 	</div>
 </div>
-
-
-<div class="illustration-image__container">
-	<div class="illustration-image">
-		
-	</div>
-	<input class="open-file" type="file" name="file-open-container" />
-</div>
-</div>
 <?php else:
 $productAttributes = $this->productAttribute; ?>
-<div class="ui-fieldset">
-	<div class="ui-formRow">
-		<?php $product_type = $form->get('product_type'); ?>
-		<div class="ui-formCol1"><?php echo $this->formLabel($product_type); ?></div>
-		<div class="ui-formCol2"><?php echo $this->formSelect($product_type); ?></div>
-	</div>
-	<div class="ui-formRow">
-		<?php $invoice_type = $form->get('invoice_type'); ?>
-		<div class="ui-formCol1"><?php echo $this->formLabel($invoice_type); ?></div>
-		<div class="ui-formCol2"><?php echo $this->formSelect($invoice_type); ?></div>
-	</div>
-	
+<div id="pet-config" class="ui-fieldset">
 	<?php foreach ($productAttributes as $productAttr): ?>
 		<?php $attr = $form->get($productAttr['attribute_type_name']); ?>
 		<div class="ui-formRow">
@@ -78,6 +50,39 @@ $productAttributes = $this->productAttribute; ?>
 	</div>
 </div>
 <?php endif; ?>
+
+<div id="pet-category" class="ui-fieldset">
+	<div class="ui-formRow">
+		<?php $product_type = $form->get('product_type'); ?>
+		<div class="ui-formCol1"><?php echo $this->formLabel($product_type); ?></div>
+		<div class="ui-formCol2"><?php echo $this->formSelect($product_type); ?></div>
+	</div>
+	<div class="ui-formRow">
+		<?php $invoice_type = $form->get('invoice_type'); ?>
+		<div class="ui-formCol1"><?php echo $this->formLabel($invoice_type); ?></div>
+		<div class="ui-formCol2"><?php echo $this->formSelect($invoice_type); ?></div>
+	</div>
+	<div class="ui-formRow ui-submit-field">
+		<div class="ui-formCol1"></div>
+		<div class="ui-formCol2"><?php echo $this->formElement($form->get('submit')); ?></div>
+	</div>
+</div>
+
+<div id="pet-images" class="illustration-image__container">
+	<?php for ($i = 0; $i < 10; $i++): ?>
+		<div class="illustration-image">
+		<input class="open-file" type="file" name="file-open-container" />
+		</div>
+	<?php endfor; ?>
+	
+	
+	<div class="ui-formRow ui-submit-field">
+		<div class="ui-formCol1"></div>
+		<div class="ui-formCol2"><?php echo $this->formElement($form->get('submit')); ?></div>
+	</div>
+</div>
+
+</div>
 
 
 <?php echo $this->form()->closeTag(); ?>
