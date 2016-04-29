@@ -236,6 +236,10 @@ $(document).ready(function(){
 			});*/
 		}
 	});
+
+
+
+	editProductAttribute();
 });
 
 
@@ -319,4 +323,43 @@ function createCheckbox(id, name) {
 function removeField(element, id) {
 	$("select[name='fk_cms_item_type']").find("option[value="+id+"]").removeClass("off");
 	$(element).parent().parent().remove();
+}
+
+
+function editProductAttribute(){
+	var array = [];
+	$("#pet-config #submit_btn").click(function(e){
+		$("#pet-config").load();
+		e.preventDefault();
+		var href = window.location.href;
+		var relativeParam = href.substr(href.lastIndexOf('/')+1);
+		var relativeId = relativeParam.substr(0, relativeParam.lastIndexOf('.'));
+		alert(relativeId);
+		$("#pet-config .ui-formRow:not(.ui-submit-field)").each(function(){
+			var attributeId = $(this).attr("data-attribute-id");
+			var attributeTypeId = $(this).attr("data-attribute-type-id");
+			var productId = $(this).attr("data-product-id");
+			var attributeName = $(this).children(".ui-formCol2").children().val();
+
+			var row = 'attribute-id=' + attributeId +'&&attribute-type-id=' + attributeTypeId + '&&product-id=' + productId + '&&attribute-name=' + attributeName;
+			array.push(row);
+		});
+
+		var arrayString = array[0];
+		for (var i=1; i<array.length; i++){
+			arrayString = arrayString + '||' + array[i];
+		}
+
+		$.ajax({
+			type: "POST",
+			url: window.location.href,
+			data: ({array:arrayString}),
+			cache: false,
+			success: function(data){
+				array = [];
+				var url = window.location.href;
+			//	window.location=url.substring(url.lastIndexOf("/edit"), 0);
+			}
+		});
+	});
 }

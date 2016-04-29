@@ -18,11 +18,12 @@ echo $this->form()->openTag($form);
 </div>
 <div id="dashboard" class="pet-detail__container">
 
-<?php if ($this->product_id == 0): ?>
+<?php $productId = $this->product_id;
+if ($productId == 0): ?>
 <div id="pet-config" class="ui-fieldset">
 	<?php foreach ($this->attributeTypes as $attribute): ?>
 		<?php $attr = $form->get($attribute['attribute_type_name']); ?>
-		<div class="ui-formRow">
+		<div class="ui-formRow" data-attribute-id="" data-attribute-type-id="<?php echo $attribute['attribute_type_id']; ?>" data-product-id="<?php echo $productId; ?>">
 			<div class="ui-formCol1"><label for='<?php echo $attribute['attribute_type_name']; ?>'><?php echo $attribute['attribute_long_name']. ":"; ?></label></div>
 			<div class="ui-formCol2"><?php echo $this->formElement($attr); ?></div>
 		</div>
@@ -34,11 +35,28 @@ echo $this->form()->openTag($form);
 	</div>
 </div>
 <?php else:
-$productAttributes = $this->productAttribute; ?>
+$productAttributes = $this->productAttribute; 
+
+if ($productAttributes == null): ?>
+<div id="pet-config" class="ui-fieldset">
+	<?php foreach ($this->attributeTypes as $attribute): ?>
+		<?php $attr = $form->get($attribute['attribute_type_name']); ?>
+		<div class="ui-formRow" data-attribute-id="" data-attribute-type-id="<?php echo $attribute['attribute_type_id']; ?>" data-product-id="<?php echo $productId; ?>">
+			<div class="ui-formCol1"><label for='<?php echo $attribute['attribute_type_name']; ?>'><?php echo $attribute['attribute_long_name']. ":"; ?></label></div>
+			<div class="ui-formCol2"><?php echo $this->formElement($attr); ?></div>
+		</div>
+	<?php endforeach; ?>
+
+	<div class="ui-formRow ui-submit-field">
+		<div class="ui-formCol1"></div>
+		<div class="ui-formCol2"><?php echo $this->formElement($form->get('submit')); ?></div>
+	</div>
+</div>	
+<?php else: ?>
 <div id="pet-config" class="ui-fieldset">
 	<?php foreach ($productAttributes as $productAttr): ?>
 		<?php $attr = $form->get($productAttr['attribute_type_name']); ?>
-		<div class="ui-formRow">
+		<div class="ui-formRow" data-attribute-id="<?php echo $productAttr['attribute_id']; ?>" data-attribute-type-id="<?php echo $productAttr['attribute_type_id']; ?>" data-product-id="<?php echo $productId; ?>">
 			<div class="ui-formCol1"><label for='<?php echo $productAttr['attribute_type_name']; ?>'><?php echo $productAttr['attribute_long_name']. ":"; ?></label></div>
 			<div class="ui-formCol2"><input type="text" value="<?php echo $productAttr['attribute_name'];?>" /></div>
 		</div>
@@ -49,7 +67,9 @@ $productAttributes = $this->productAttribute; ?>
 		<div class="ui-formCol2"><?php echo $this->formElement($form->get('submit')); ?></div>
 	</div>
 </div>
-<?php endif; ?>
+<?php endif;
+endif; ?>
+
 
 <div id="pet-category" class="ui-fieldset">
 	<div class="ui-formRow">

@@ -64,12 +64,12 @@ class IndexController extends AbstractActionController
 
 		$view->product_id = $product_id;
 
-		$product_info = $this->getFullInformationById($product_id);
+	/*	$product_info = $this->getFullInformationById($product_id);
 		$view->currentProduct = $product_info;
 		$images = $this->getImagesFromProductId($product_id);
 		$view->images = $images;
 		$view->all_product_types = $this->fetchAllProductTypes();
-		$view->invoiceType = $this->fetchAllInvoiceTypes();
+		$view->invoiceType = $this->fetchAllInvoiceTypes();*/
 
 		$adapter = ServiceConfigHelper::getAdapter($this);
 		$form = new PetDetailForm($adapter);
@@ -155,5 +155,38 @@ class IndexController extends AbstractActionController
 	public function getProductAttribute($id){
 		$attribute = ConcreteServiceConfig::getAttributeServiceConfig($this);
 		return $attribute->getProductAttribute($id);
+	}
+
+	public function createProductAttribute($request) {
+		if($request->isXmlHttpRequest())
+      	{
+			$item1 = explode("||", $_POST['array']);
+
+			$array1 = [];
+			foreach($item1 as $item){
+				$item2 = explode("&&", $item);
+				array_push($array1, $item2);
+			}
+
+			$array2 = [];
+			$array3 = [];
+			foreach($array1 as $sub_array){
+				foreach($sub_array as $small_array){
+					$item = explode("=", $small_array, 2);
+					$array2[$item[0]] = $item[1];
+				}
+				array_push($array3, $array2);
+				$cmsItem = new CmsItem();
+				$cmsItem->exchangeArray($array2);
+				$this->saveCmsItem($cmsItem);
+			}
+			$this->flashMessenger()->addMessage('CMS items are saved successfully!');
+		}
+	}
+
+	public function saveCmsItem($entity)
+	{
+		$cmsItem = ConcreteServiceConfig::getCmsItemServiceConfig($this);
+		return $cmsItem->save($entity);
 	}
 }
